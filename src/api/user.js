@@ -102,15 +102,16 @@ export const generateGuestToken = async () => {
 };
 
 export const sendOtp = async (formData, token) => {
-  return await axios.post(
-    `${favcyUrl}//api/3.1/otp/send`,
-    formData,
-    {
-      headers: {
-        'auth-token': token,
-      },
-    },
-  );
+
+  let config = {
+    headers: {
+      'auth-token': token,
+      'Content-Type': 'multipart/form-data',
+    }
+  }
+
+
+  return await axios.post(`${favcyUrl}/api/3.1/otp/send`, formData, config);
 };
 
 export const verifyOtp = async (formData, token) => {

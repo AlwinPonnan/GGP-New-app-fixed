@@ -42,17 +42,44 @@ export default function OtpVerifyPlansSelection(props) {
     const [loading, setLoading] = useContext(LoaderContext);
 
 
+    const [resendAllowed, setResendAllowed] = useState(true);
+
+
+    const handleResendTimeOut = () => {
+        setTimeout(() => {
+            setResendAllowed(true)
+        }, 30000)
+    }
+
+    useEffect(() => {
+        if (!resendAllowed) {
+            handleResendTimeOut()
+        }
+    }, [resendAllowed])
+
+
+
+
     const resendOtp = async () => {
         setLoading(true)
         try {
             let formData = new FormData();
             formData.append('otp_mobile_num', props?.route?.params?.data);
             formData.append('otp_mobile_cc', 91);
+
+            if (!resendAllowed) {
+                setToggleModal(true)
+                setMessage("Please wait for 30 seconds before requesting a new otp")
+                setLoading(false)
+                return;
+            }
             const { data: response } = await sendOtp(
                 formData,
                 props?.route?.params?.token,
             );
             if (response.status == 200 || response.status == 201) {
+                setResendAllowed(false)
+
                 setToggleModal(true)
                 setMessage(response.data.message)
 

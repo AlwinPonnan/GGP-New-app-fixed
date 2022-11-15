@@ -46,7 +46,7 @@ export default function Otp(props) {
   const handleResendTimeOut = () => {
     setTimeout(() => {
       setResendAllowed(true)
-    }, 300)
+    }, 30000)
   }
 
   useEffect(() => {
@@ -64,9 +64,11 @@ export default function Otp(props) {
       let formData = new FormData();
       formData.append('otp_mobile_num', props?.route?.params?.data);
       formData.append('otp_mobile_cc', 91);
+      console.log(resendAllowed, "resendAllowed")
       if (!resendAllowed) {
         setToggleModal(true)
         setMessage("Please wait for 30 seconds before requesting a new otp")
+        setLoading(false)
         return;
       }
       const { data: response } = await sendOtp(

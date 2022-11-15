@@ -1,39 +1,27 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
-  ImageBackground,
-  ScrollView,
+  ActivityIndicator, FlatList, ImageBackground, Modal, ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
-  ActivityIndicator,
-  Modal,
-  FlatList,
+  View
 } from 'react-native';
 import {
   heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
+  widthPercentageToDP as wp
 } from 'react-native-responsive-screen';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
-  generateGuestToken,
-  newParent,
-  sendOtp,
-  setAuthToken,
-  setPhoneNumber,
-  setUserObjForRegister,
-  CheckValidReferral
+  CheckValidReferral, generateGuestToken, sendOtp, setPhoneNumber, setUserObjForRegister
 } from '../api/user';
 import CommonHeader from '../Component/CommonHeader';
-import Down from '../images/svg/dropDown';
-import Flag from '../images/svg/flag';
+import MasterData from '../MasterData';
 import commonStyle from '../Styles/commonStyle';
 import CSS from '../Styles/parentStyle';
 import { Colors, Spacing, Typography } from '../Styles/theme';
-import MasterData from '../MasterData';
 import { ANTDESIGN } from '../Styles/theme/Icons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 // import PhoneInput from 'react-native-phone-input'
 import PhoneInput from "react-native-phone-number-input";
 import { LoaderContext, refContext, toggleModalContext } from '../../App';
@@ -191,6 +179,7 @@ export default function Signup(props) {
         if (res.data) {
           setToken(res.data.token);
           console.log('guest token', res.data.token);
+          console.log('form data', formData);
           console.log('inside otp');
 
           const { data: responseData } = await sendOtp(
@@ -215,7 +204,7 @@ export default function Signup(props) {
 
     }
     catch (error) {
-
+      console.error(JSON.stringify(error, null, 2))
       if (error?.response?.data?.message) {
         setToggleModal(true)
         if (error.response.data.message) {
@@ -333,8 +322,8 @@ export default function Signup(props) {
                     <PhoneInput
                       defaultValue='IND'
                       layout="first"
-                      disabled
-                      disableArrowIcon
+                      // disabled
+                      // disableArrowIcon
                       onChangeCountry={val => setCountryCode(val.callingCode[0])}
                       textContainerStyle={{ borderRadius: 30, height: hp(5), width: "100%" }}
                       containerStyle={{ borderRadius: 30, height: hp(5), width: wp(43) }}
