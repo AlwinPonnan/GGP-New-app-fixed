@@ -75,7 +75,7 @@ export default function Shop(props) {
         )
     }
     const productRenderItem = ({ item: flatlistItem }) => {
-        console.log(flatlistItem?.favcy_inventory_item?.amount, flatlistItem?.reseller_markup_rules?.upper_limit, flatlistItem.type, flatlistItem?.parent_item_data)
+        // console.log(flatlistItem?.favcy_inventory_item?.amount, flatlistItem?.reseller_markup_rules?.upper_limit, flatlistItem.type, flatlistItem?.parent_item_data)
         return (
             <TouchableOpacity onPress={() => navigation.navigate('ProductDetails', { data: flatlistItem.id, itemId: flatlistItem.item_id })} style={[styles.saleView]}>
                 <Image source={{ uri: flatlistItem?.item?.default_media[0]?.full_media_url }} style={[styles.img]} />
@@ -160,13 +160,13 @@ export default function Shop(props) {
             console.log(JSON.stringify(res?.data, null, 2), "Sale products");
             if (res.data) {
                 let filteredArr = [];
-                for (const el of res?.data?.inventory_Data) {
-                    if (filteredArr.some(ele => ele.item_id == el.item_id) == false) {
+                for (const el of res?.data) {
+                    if (filteredArr.some(ele => ele?.item_id == el?.item_id) == false) {
                         filteredArr.push(el);
                     }
                 };
-                console.log(JSON.stringify(filteredArr, null, 2), "filtered Arr");
-                setSaleProductsArr(filteredArr);
+                // console.log(JSON.stringify(filteredArr, null, 2), "filtered Arr");
+                setSaleProductsArr([...filteredArr]);
                 // setDisplayProductsArr(filteredArr);
             }
             // console.log(JSON.stringify(res.data.inventory_Data[0].item_id, null, 2), "Ress")
