@@ -9,6 +9,7 @@ import { CheckValidReferral } from '../api/user';
 import Logo from '../images/svg/headLogo';
 import commonStyle from '../Styles/parentStyle';
 import { Colors, Spacing, Typography } from '../Styles/theme';
+import { useAnalytics } from '@segment/analytics-react-native';
 
 import WebView from 'react-native-webview';
 
@@ -27,6 +28,7 @@ export default function Splash(props) {
     const videoError = () => {
 
     }
+    const {track} = useAnalytics();
 
 
 
