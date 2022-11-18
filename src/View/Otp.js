@@ -101,6 +101,7 @@ export default function Otp(props) {
       formData.append('otp_mobile_num', props?.route?.params?.data);
       formData.append('otp_mobile_cc', 91);
       formData.append('otp', otp);
+      console.log("in veriffy", formData)
       const res = await verifyOtp(formData, props?.route?.params?.token);
       console.log(res, 'verify');
       if (res.data.data) {

@@ -87,7 +87,6 @@ export const generateGuestToken = async () => {
     {
       headers: {
         accept: 'application/json',
-
         ///////staging
         // 'app-id': 'ghqezpxmzd-1713',
 
@@ -115,9 +114,11 @@ export const sendOtp = async (formData, token) => {
 };
 
 export const verifyOtp = async (formData, token) => {
+  console.log("verify started")
   return await axios.post(`${favcyUrl}/api/3.1/login`, formData, {
     headers: {
       'auth-token': token,
+      'Content-Type': 'multipart/form-data',
     },
   });
 };
