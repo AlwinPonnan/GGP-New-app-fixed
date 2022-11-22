@@ -11,6 +11,7 @@ import commonStyle from '../Styles/parentStyle';
 import { Colors, Spacing, Typography } from '../Styles/theme';
 
 import WebView from 'react-native-webview';
+import CheckBox from 'react-native-check-box';
 
 export default function Splash(props) {
     const [videoModal, setVideoModal] = useState(false)
@@ -172,11 +173,11 @@ export default function Splash(props) {
                                 </LinearGradient>
                             </TouchableOpacity>
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 10, marginTop: 15 }} >
-                                {/* <CheckBox
+                                <CheckBox
                                     style={{ marginRight: hp(0.5), }}
                                     onClick={() => setIsFirstTimeUser()}
                                     isChecked={isFirstTimeUserValue}
-                                /> */}
+                                />
                                 <Text style={{ color: Colors.GRADIENT1 }}>Don't Show again</Text>
                             </View>
                         </View>

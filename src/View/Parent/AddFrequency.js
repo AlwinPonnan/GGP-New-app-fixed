@@ -231,19 +231,28 @@ export default function AddFrequency(props) {
         return;
       }
 
-      if (selectedMission && selectedMission?.attributesArr && selectedMission?.attributesArr.length > 0 && selectedMission?.attributesArr.some(el => el.name.toLowerCase() == "reward" && parseInt(el.coinsAmount) > 9999)) {
+
+      console.log(selectedMission?.attributesArr.find(el => `${el.name}`.replace(/\s/g, '').toLowerCase() == "reward"), "asd")
+      if (selectedMission && selectedMission?.attributesArr && selectedMission?.attributesArr.length > 0 && selectedMission?.attributesArr.some(el => el.name.replace(/\s/g, '').toLowerCase() == "reward" && (!el.coinsAmount || el.coinsAmount <= 0))) {
+        setToggleModal(true)
+        setMessage("Reward is mandatory")
+        setLoading(false)
+        return;
+      }
+      if (selectedMission && selectedMission?.attributesArr && selectedMission?.attributesArr.length > 0 && selectedMission?.attributesArr.some(el => el.name.replace(/\s/g, '').toLowerCase() == "reward" && parseInt(el.coinsAmount) > 9999)) {
         setToggleModal(true)
         setMessage("Maximum 9999 is possible as reward")
         setLoading(false)
         return;
       }
-      if (selectedMission && selectedMission?.attributesArr && selectedMission?.attributesArr.length > 0 && selectedMission?.attributesArr.some(el => el.name.toLowerCase() == "bonus" && parseInt(el.coinsAmount) > 9999)) {
+      if (selectedMission && selectedMission?.attributesArr && selectedMission?.attributesArr.length > 0 && selectedMission?.attributesArr.some(el => el.name.replace(/\s/g, '').toLowerCase() == "bonus" && parseInt(el.coinsAmount) > 9999)) {
         setToggleModal(true)
         setMessage("Maximum 9999 is possible as bonus")
         setLoading(false)
         return;
       }
-      if (selectedMission && selectedMission?.attributesArr && selectedMission?.attributesArr.length > 0 && selectedMission?.attributesArr.some(el => el.name.toLowerCase() == "reward" && parseInt(el.coinsAmount) <= 0)) {
+      alert
+      if (selectedMission && selectedMission?.attributesArr && selectedMission?.attributesArr.length > 0 && selectedMission?.attributesArr.some(el => el.name.replace(/\s/g, '').toLowerCase() == "reward" && parseInt(el.coinsAmount) <= 0)) {
         setToggleModal(true)
         setMessage("Minimun 1 is possible as reward")
         setLoading(false)
@@ -252,7 +261,7 @@ export default function AddFrequency(props) {
 
 
       if (selectedMission?.disabled) {
-        let temp = obj.attributeArr.some(el => `${el?.name}`.toLowerCase() == "Streak".toLowerCase() && el.frequencyAmount == 0)
+        let temp = obj.attributeArr.some(el => `${el?.name}`.replace(/\s/g, '').toLowerCase() == "Streak".toLowerCase() && el.frequencyAmount == 0)
         if (temp) {
           setToggleModal(true)
           setMessage("Please add atleast one in frequency before adding a mission")

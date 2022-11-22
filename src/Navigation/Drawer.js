@@ -73,22 +73,22 @@ const CustomDrawerContent = (props) => {
             </View>
             <ScrollView style={{ padding: 20 }}>
                 <TouchableOpacity style={[commonStyle.flexRow]} onPress={() => navigation.navigate('SettingStack', { screen: "Settings" })}>
-                    <Settings height={hp(6)} width={wp(10)} style={{}} />
+                    <Settings height={hp(3)} width={wp(6)} style={{}} />
                     <Text style={[styles.text]}>Settings</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleMailRedirect()} style={[commonStyle.flexRow, { marginTop: Spacing.MARGIN_15 }]}>
-                    <AntDesign name='mail' size={30} color={Colors.PRIMARY} />
+                    <AntDesign name='mail' size={20} color={Colors.PRIMARY} />
                     <Text style={[styles.text, { marginLeft: Spacing.MARGIN_15 }]}>Call Good Good Piggy Expert</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[commonStyle.flexRow]} onPress={() => navigation.navigate('BottomTabBar', {
                     screen: 'Notification',
                 })
                 }>
-                    <FontAwesome name='bell' size={35} style={{ marginVertical: 10 }} color={Colors.GRADIENT1} />
-                    <Text style={[styles.text]}>Notifications</Text>
+                    <FontAwesome name='bell' size={20} style={{ marginTop: 10 }} color={Colors.GRADIENT1} />
+                    <Text style={[styles.text, { marginLeft: Spacing.MARGIN_15, marginTop: 10 }]}>Notifications</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[commonStyle.flexRow, { marginTop: Spacing.MARGIN_15 }]} onPress={showAlert} >
-                    <AntDesign name='logout' size={30} color={Colors.PRIMARY} />
+                    <AntDesign name='logout' size={20} color={Colors.PRIMARY} />
                     <Text style={[styles.text, { marginLeft: Spacing.MARGIN_15 }]}>Logout</Text>
                 </TouchableOpacity>
             </ScrollView>

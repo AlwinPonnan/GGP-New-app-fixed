@@ -289,7 +289,7 @@ export default function Otp(props) {
 const styles = {
   card: {
     height: hp(25),
-    width: '100%',
+    width: '102.8%',
     borderRadius: 20,
     paddingHorizontal: Spacing.MARGIN_10,
     justifyContent: 'center',

@@ -67,7 +67,8 @@ export default function Settings() {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('PlansAfterLogin')
+                  console.log("pressed")
+                  // navigation.navigate('PlansAfterLogin')
                 }
                 style={[commonStyle.flexRow, styles.whiteBg]}>
                 <GoPremium height={hp(4)} width={wp(7)} />
