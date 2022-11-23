@@ -26,7 +26,7 @@ export default function DailyMission(props) {
     const focused = useIsFocused();
     const navigation = useNavigation();
     const [loading, setLoading] = useContext(LoaderContext);
-    const [missionArr, setMissionArr] = useState([]);
+    const [missionsArr, setMissionsArr] = useState([]);
     const [missionConfirmationModal, setMissionConfirmationModal] = useState(false)
     const { toggleObj, messageObj } = useContext(toggleModalContext)
     const [currentPopUpId, setCurrentPopUpId] = useState("");
@@ -43,11 +43,11 @@ export default function DailyMission(props) {
                 kidId: decoded.userId
             }
             let { data: res } = await kidMissionCreate(obj);
-
+            console.log(res)
             if (res.message) {
-                getAllMission()
                 setToggleModal(true)
                 setMessage(res.message)
+                getAllMission()
             }
         }
         catch (error) {
@@ -92,10 +92,10 @@ export default function DailyMission(props) {
     const getAllMission = async () => {
         setLoading(true)
         try {
+            setMissionsArr([])
             let { data: res } = await getAllDailyMission();
             console.log(res.data, 'response')
-            if (res.data) {
-
+            if (res.data && res.data.length > 0) {
                 let tempArr = res?.data?.map(el => {
                     let dayEnd = new Date();
                     dayEnd = new Date(dayEnd.getFullYear(), dayEnd.getMonth(), dayEnd.getDate() + 1, 0, 0);
@@ -105,12 +105,10 @@ export default function DailyMission(props) {
                     console.log(dif)
                     return el
                 })
-
-                console.log(tempArr, "setMissionArr")
-
-
-                setMissionArr([...tempArr])
+                setMissionsArr([...tempArr])
             }
+            // else {
+            // }
 
         }
         catch (error) {
@@ -147,16 +145,19 @@ export default function DailyMission(props) {
                         <Clock height={hp(4)} width={wp(6)} style={{ marginRight: Spacing.MARGIN_10 }} />
                         {/* <Text style={[commonStyle.title, { color: Colors.LIGHT_BLACK, fontSize: Typography.FONT_SIZE_16 }]}>gjj</Text> */}
                         <View style={{ marginLeft: -hp(1.7) }}>
-                            <CountDown
-                                until={Math.abs(item.timeRemaining)}
-                                digitStyle={{ color: '#fff', fontFamily: 'Cookies' }}
-                                digitTxtStyle={{ color: Colors.LIGHT_BLACK, margin: 0, padding: 0, fontFamily: 'Cookies', fontSize: 16, }}
-                                timeToShow={['H', 'M', 'S']}
-                                timeLabels={{ m: '', s: '' }}
-                                size={9}
-                                separatorStyle={{ color: Colors.LIGHT_BLACK }}
-                                showSeparator={true}
-                            />
+                            {
+                                item && !!item?.timeRemaining &&
+                                <CountDown
+                                    until={Math.abs(item?.timeRemaining)}
+                                    digitStyle={{ color: '#fff', fontFamily: 'Cookies' }}
+                                    digitTxtStyle={{ color: Colors.LIGHT_BLACK, margin: 0, padding: 0, fontFamily: 'Cookies', fontSize: 16, }}
+                                    timeToShow={['H', 'M', 'S']}
+                                    timeLabels={{ m: '', s: '' }}
+                                    size={9}
+                                    separatorStyle={{ color: Colors.LIGHT_BLACK }}
+                                    showSeparator={true}
+                                />
+                            }
                         </View>
                     </View>
                     <View style={[{ marginTop: Spacing.PADDING_7, justifyContent: 'space-between' }]}>
@@ -207,98 +208,6 @@ export default function DailyMission(props) {
         )
     }
 
-    const ConfirmationModel = ({ show }) => {
-        return (
-            <View style={{ paddingHorizontal: Spacing.MARGIN_20 }} >
-                <Modal animationType="slide" transparent={true} visible={show}>
-                    <View style={[commonStyle.modalBackground]}>
-                        <View
-                            style={[
-                                commonStyle.whiteBg,
-                                { backgroundColor: Colors.OFF_YELLOW },
-                            ]}>
-                            <LinearGradient
-                                start={{ x: 1, y: 0 }}
-                                end={{ x: 0, y: 2 }}
-                                colors={[Colors.GRADIENT1, Colors.GRADIENT2, Colors.GRADIENT1]}
-                                style={[commonStyle.linearModal]}>
-                                <Image
-                                    source={require('../images/modalTeady.png')}
-                                    resizeMode="contain"
-                                    style={[commonStyle.modalTeady]}
-                                />
-                            </LinearGradient>
-                            <View
-                                style={[
-                                    commonStyle.flexRow,
-                                    { alignSelf: 'center', marginVertical: Spacing.MARGIN_25 },
-                                ]}>
-                                <TouchableOpacity
-                                    onPress={() => setAddVideoModal(false)}
-                                    style={{ width: '40%' }}>
-                                    <LinearGradient
-                                        start={{ x: 1, y: 0 }}
-                                        end={{ x: 0, y: 2 }}
-                                        colors={[
-                                            Colors.GRADIENT1,
-                                            Colors.GRADIENT2,
-                                            Colors.GRADIENT1,
-                                        ]}
-                                        style={[commonStyle.linearBtn]}>
-                                        <View
-                                            style={[
-                                                styles.btnView,
-                                                //  { backgroundColor: Colors.WHITE, width: '99%' },
-                                            ]}>
-                                            <Text
-                                                style={[commonStyle.btnText, { color: Colors.WHITE }]}>
-                                                Back
-                                            </Text>
-                                        </View>
-                                    </LinearGradient>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        // setAddVideoModal(false);
-                                        //   handleDateAndTimeSave();
-                                        setAddVideoModal(false)
-                                        HandleReschedule()
-                                        // navigation.navigate('MissionSummary');
-                                    }}
-                                    style={{ width: '40%', marginLeft: Spacing.MARGIN_10 }}>
-                                    <LinearGradient
-                                        start={{ x: 1, y: 0 }}
-                                        end={{ x: 0, y: 2 }}
-                                        colors={[
-                                            Colors.GRADIENT1,
-                                            Colors.GRADIENT2,
-                                            Colors.GRADIENT1,
-                                        ]}
-                                        style={[commonStyle.linearBtn]}>
-                                        <View style={[styles.btnView, { width: '99%' }]}>
-                                            <Text
-                                                style={[commonStyle.btnText, { color: Colors.WHITE }]}>
-                                                Save
-                                            </Text>
-                                        </View>
-                                    </LinearGradient>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <TouchableOpacity onPress={() => setAddVideoModal(false)}>
-                            <AntDesign
-                                name={ANTDESIGN.CIRCEL_CLOSE}
-                                color={Colors.WHITE}
-                                size={Spacing.SIZE_40}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </Modal>
-
-            </View>
-        )
-    }
     return (
         <View style={[styles.container]}>
             <ImageBackground source={images.backGround} style={[commonStyle.fullSize]}>
@@ -329,9 +238,9 @@ export default function DailyMission(props) {
                     </View>
                     <FlatList
                         horizontal={true}
-                        data={missionArr}
+                        data={missionsArr}
                         renderItem={renderItem}
-                        keyExtractor={item => item._id}
+                        keyExtractor={(item, index) => `${index}`}
                         ListEmptyComponent={
                             <Text style={[commonStyle.title, { color: "grey", fontSize: 17, marginLeft: 15 }]}>No Missions Found for today</Text>
                         }

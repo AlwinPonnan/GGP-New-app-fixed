@@ -43,12 +43,15 @@ export default function DiscussVideo(props) {
 
     const handleAcceptApproval = async () => {
         try {
+            setApproveModal(false)
             if (count == "" || count == '0') {
+                setApproveModal(false)
                 setToggleModal(true)
                 setMessage("Amount cannot be 0, please add amount")
                 return;
             }
             else if (reason == "") {
+                setApproveModal(false)
                 setToggleModal(true)
                 setMessage("Please add a reason")
                 return;

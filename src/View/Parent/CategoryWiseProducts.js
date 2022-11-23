@@ -60,9 +60,9 @@ export default function CategoryWiseProducts(props) {
             let filteredArr = [];
             console.log(res.data.length, "res.data.length")
             for (const el of res?.data) {
-                // if (filteredArr.some(ele => !(ele.inventory.item_id == el.inventory.item_id))) {
-                filteredArr.push(el);
-                // }
+                if (filteredArr.some(ele => !(ele.inventory.item_id == el.inventory.item_id))) {
+                    filteredArr.push(el);
+                }
             };
             console.log(JSON.stringify(filteredArr, null, 2), "filtered Arr");
             setProductsArr(filteredArr);

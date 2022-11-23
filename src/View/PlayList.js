@@ -117,7 +117,7 @@ export default function PlayList() {
 
 
                 <FlatList
-                    data={[]}
+                    data={playlistArr}
                     renderItem={renderItem}
                     numColumns={2}
                     contentContainerStyle={{ paddingBottom: hp(10) }}

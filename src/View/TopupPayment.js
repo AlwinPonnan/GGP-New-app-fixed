@@ -42,7 +42,8 @@ export default function TopupPayment(props) {
             </head>
             <body>
             <div style="margin-top:50px">
-            <form id="formPayment" action="https://www.favcy.com/payments/pay" method="POST">
+            <div>loading ...</div>
+            <form id="formPayment" style="display:none; opacity:0" action="https://www.favcy.com/payments/pay" method="POST">
                          <input type="text" style="display:none" name="auth_token" value="${favcyAuthtoken}" onChange={(e) => setAuth_token(e.target.value)} placeholder="Auth Token" />
                          <input type="text" style="display:none" name="client" value="${client}" onChange={(e) => setClient(e.target.value)} placeholder="Client" />
                          <input type="text" style="display:none" name="order_id" value="${order_id}" onChange={(e) => setOrder_id(e.target.value)} placeholder="Order_Id" />

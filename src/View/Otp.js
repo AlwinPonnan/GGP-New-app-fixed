@@ -42,7 +42,7 @@ export default function Otp(props) {
 
   const [resendAllowed, setResendAllowed] = useState(true);
 
-
+  const [clearState, setClearState] = useState(false);
   const handleResendTimeOut = () => {
     setTimeout(() => {
       setResendAllowed(true)
@@ -116,18 +116,19 @@ export default function Otp(props) {
       }
     }
     catch (error) {
-      console.log(error?.response?.data?.error?.message)
-      console.log(error?.message)
+      setOtp("")
+      console.error(error?.response?.data?.error?.message);
+      console.error(error?.message);
       if (error?.response?.data?.message) {
-        setToggleModal(true)
-        setMessage(error.response.data.message)
+        setToggleModal(true);
+        setMessage(error.response.data.message);
       }
       else if (error?.response?.data?.error?.message) {
-        setToggleModal(true)
-        setMessage(error?.response?.data?.error?.message)
+        setToggleModal(true);
+        setMessage(error?.response?.data?.error?.message);
       } else {
-        setToggleModal(true)
-        setMessage(error?.message)
+        setToggleModal(true);
+        setMessage(error?.message);
       }
     }
     setLoading(false)
@@ -207,12 +208,12 @@ export default function Otp(props) {
               <View style={{ display: "flex", height: 100, alignItems: "center", justifyContent: "center" }}>
                 <OTPInputView
                   style={{ width: '80%', zIndex: 150 }}
-                  // textInputStyle={{ height: 100 }}
                   pinCount={6}
                   autoFocusOnLoad
+                  code={otp}
                   codeInputFieldStyle={styles.underlineStyleBase}
                   codeInputHighlightStyle={styles.underlineStyleHighLighted}
-                  onCodeFilled={code => {
+                  onCodeChanged={code => {
                     setOtp(code);
                   }}
                 />

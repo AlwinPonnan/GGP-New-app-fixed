@@ -7,6 +7,7 @@ import {
   View,
   Image,
   ScrollView,
+  Pressable,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -65,15 +66,15 @@ export default function Settings() {
                 <Kid height={hp(4)} width={wp(7)} />
                 <Text style={[styles.contain, { marginLeft: -15 }]}>Kid</Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              <Pressable
                 onPress={() =>
                   console.log("pressed")
                   // navigation.navigate('PlansAfterLogin')
                 }
-                style={[commonStyle.flexRow, styles.whiteBg]}>
+                style={[commonStyle.flexRow, styles.whiteBg, { backgroundColor: "rgba(255,255,255,0.4)" }]}>
                 <GoPremium height={hp(4)} width={wp(7)} />
                 <Text style={[styles.contain]}>Go Premium</Text>
-              </TouchableOpacity>
+              </Pressable>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('ScreenTime')

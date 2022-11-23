@@ -112,6 +112,7 @@ export default function OtpVerifyBeforePayment(props) {
       }
     }
     catch (error) {
+      setOtp("")
       // console.log(JSON.stringify(error?.response, null, 2), "error?.response?.data?.message")
       if (error?.response?.data?.error?.message) {
         setToggleModal(true)
@@ -206,10 +207,11 @@ export default function OtpVerifyBeforePayment(props) {
                   containerStyle={{ width: '80%', height: 10 }}
                   textInputStyle={{ height: 100 }}
                   pinCount={6}
+                  code={otp}
                   autoFocusOnLoad
                   codeInputFieldStyle={styles.underlineStyleBase}
                   codeInputHighlightStyle={styles.underlineStyleHighLighted}
-                  onCodeFilled={code => {
+                  onCodeChanged={code => {
                     setOtp(code);
                   }}
                 />

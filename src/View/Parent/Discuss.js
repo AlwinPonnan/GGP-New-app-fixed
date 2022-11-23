@@ -41,12 +41,15 @@ export default function Discuss(props) {
     const handleKidMissionApprove = async () => {
         // setLoading(true)
         try {
+            setApproveModal(false)
             if (count == "" || count == '0') {
+                setApproveModal(false)
                 setToggleModal(true)
                 setMessage("Amount cannot be 0, please add amount")
                 return;
             }
             else if (reason == "") {
+                setApproveModal(false)
                 setToggleModal(true)
                 setMessage("Please add a reason")
                 return;
@@ -169,7 +172,6 @@ export default function Discuss(props) {
                 animationType="slide"
                 transparent={true}
                 visible={approveModal}
-
             >
                 <View style={[commonStyle.modalBackground]}>
                     <View style={[commonStyle.whiteBg, { backgroundColor: Colors.OFF_YELLOW, }]}>
@@ -189,7 +191,7 @@ export default function Discuss(props) {
                                 </LinearGradient>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => handleKidMissionApprove()} style={{ width: '40%', marginLeft: Spacing.MARGIN_10 }} >
+                            <TouchableOpacity onPress={() => setApproveModal(false)} style={{ width: '40%', marginLeft: Spacing.MARGIN_10 }} >
                                 <LinearGradient start={{ x: 1, y: 0 }} end={{ x: 0, y: 2 }} colors={[Colors.GRADIENT1, Colors.GRADIENT2, Colors.GRADIENT1]} style={[commonStyle.linearBtn]} >
                                     <View style={[styles.btnView, { width: '99%' }]}>
                                         <Text style={[commonStyle.btnText, { color: Colors.WHITE }]}>No</Text>

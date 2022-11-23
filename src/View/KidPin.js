@@ -14,6 +14,7 @@ import { authContext } from '../Context/AuthContext';
 import { getValidSubscriptionByPhone, removeRoleString, setAuthToken, setFavcyAuthToken, setRoleString } from '../api/user';
 import { RoleContext } from '../Context/RoleContext';
 import { LoaderContext, toggleModalContext } from '../../App';
+import Back from '../images/svg/parentsvg/back';
 
 export default function KidPin(props) {
     const navigation = useNavigation();
@@ -199,6 +200,12 @@ export default function KidPin(props) {
                     />
                 </ImageBackground>
             </ImageBackground>
+
+            <View style={[commonStyle.flexRow, {
+                justifyContent: 'flex-end', position: 'absolute', backgroundColor: "white", width: wp(100), bottom: 0
+            }]}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 14 }}><Back height={35} width={wp(22)} /></TouchableOpacity>
+            </View>
         </View>
     )
 }

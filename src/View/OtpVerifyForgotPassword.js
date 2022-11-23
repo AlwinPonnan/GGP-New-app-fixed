@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
     ActivityIndicator, ImageBackground, Pressable, Text, TouchableOpacity, View
 } from 'react-native';
@@ -108,6 +108,7 @@ export default function OtpVerifyForgotPassword(props) {
             }
         }
         catch (error) {
+            setOtp("")
             console.log(error.response.data.error, "error")
             if (error.response.data.error.message) {
                 setToggleModal(true)
@@ -202,6 +203,7 @@ export default function OtpVerifyForgotPassword(props) {
                                     textInputStyle={{ height: 100 }}
                                     pinCount={6}
                                     autoFocusOnLoad
+                                    code={otp}
                                     codeInputFieldStyle={styles.underlineStyleBase}
                                     codeInputHighlightStyle={styles.underlineStyleHighLighted}
                                     onCodeFilled={code => {
