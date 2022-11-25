@@ -214,6 +214,10 @@ export default function PlansAfterLogin(props) {
             handleGetCoupons()
 
         }
+        return () => {
+            setModalVisible(false)
+            setSummaryModalVisible(false)
+        }
     }, [focused])
 
 

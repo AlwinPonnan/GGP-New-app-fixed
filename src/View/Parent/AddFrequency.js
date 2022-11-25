@@ -1026,8 +1026,10 @@ export default function AddFrequency(props) {
                       <DatePicker
                         mode="date"
                         open={true}
+
                         date={new Date(selectedItem?.timeAndDateObj?.stopOn)}
                         minimumDate={new Date()}
+                        textColor={"#000"}
                         style={{ width: wp(70), fontSize: 15, borderRadius: 10 }}
                         onDateChange={(date) => {
                           handleOnDateSet(date)

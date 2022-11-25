@@ -752,6 +752,7 @@ export default function VideoApproved(props) {
                                                 <DatePicker
                                                     mode="date"
                                                     open={true}
+                                                    textColor={'#000'}
                                                     style={{ flex: 1, fontSize: 15, backgroundColor: "white", borderRadius: 10, marginLeft: 15, }}
                                                     minimumDate={new Date()}
                                                     date={stopOn}
@@ -779,7 +780,7 @@ export default function VideoApproved(props) {
                                                 style={[
                                                     styles.selectWhiteBtn,
                                                     { justifyContent: 'space-between', width: "100%", borderRadius: 27 },
-                                                ]} value={`${stopAfter}`} maxLength={3} keyboardType='number-pad' onChangeText={(val) => setStopAfter(val[0]==0 ? 1 : val)} />
+                                                ]} value={`${stopAfter}`} maxLength={3} keyboardType='number-pad' onChangeText={(val) => setStopAfter(val[0] == 0 ? 1 : val)} />
 
                                         </LinearGradient>
                                 }

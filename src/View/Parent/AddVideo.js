@@ -169,12 +169,12 @@ export default function AddVideo(props) {
         let decoded = await getDecodedToken()
         try {
             let rewardCount = () => {
-                    if(rewardcount == ''){
-                        return 1;
-                    }else{
-                        return Number(rewardcount)
-                    }
-            } 
+                if (rewardcount == '') {
+                    return 1;
+                } else {
+                    return Number(rewardcount)
+                }
+            }
             let obj = {
                 kidId: currentKid._id,
                 userId: decoded.userId,
@@ -505,6 +505,7 @@ export default function AddVideo(props) {
                                                 <DatePicker
                                                     mode="date"
                                                     open={true}
+                                                    textColor={'#000'}
                                                     date={stopOn}
                                                     minimumDate={new Date()}
                                                     style={{ flex: 1, fontSize: 15, backgroundColor: "white", borderRadius: 10, marginLeft: 15, }}

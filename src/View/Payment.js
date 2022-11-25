@@ -130,9 +130,6 @@ export default function Payment(props) {
 
     return (
         <View style={{ backgroundColor: "red", flex: 1 }}>
-            <View style={{}}>
-                <ActivityIndicator size={"large"} color="black" />
-            </View>
             <WebView
                 onNavigationStateChange={(navState) => {
                     // setLoading(false);

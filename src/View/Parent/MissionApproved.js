@@ -771,6 +771,7 @@ export default function MissionApproved() {
                                                     <DatePicker
                                                         mode="date"
                                                         open={true}
+                                                        textColor={'#000'}
                                                         date={new Date(timeAndDateObj?.stopOn)}
                                                         minimumDate={new Date()}
                                                         style={{ width: wp(55), fontSize: 15, backgroundColor: "white", borderRadius: 10, marginLeft: 15, }}

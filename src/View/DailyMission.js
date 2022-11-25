@@ -16,7 +16,7 @@ import { images } from '../Constant/background';
 import Daily from '../images/svg/dailyMission';
 import { LoaderContext, toggleModalContext } from '../../App';
 import { getAllDailyMission } from '../api/Missions';
-import CountDown from 'react-native-countdown-component';
+// import CountDown from 'react-native-countdown-component';
 import { getDecodedToken } from '../api/user';
 import { kidMissionCreate, KidMissionUpdate } from '../api/kidMissionCompletion';
 import { KidMissionCompletionStatus } from '../api/utils/StatusForKidMissionCompletionStatus';
@@ -144,7 +144,7 @@ export default function DailyMission(props) {
                     <View style={[commonStyle.flexRow, { marginTop: Spacing.MARGIN_10 }]}>
                         <Clock height={hp(4)} width={wp(6)} style={{ marginRight: Spacing.MARGIN_10 }} />
                         {/* <Text style={[commonStyle.title, { color: Colors.LIGHT_BLACK, fontSize: Typography.FONT_SIZE_16 }]}>gjj</Text> */}
-                        <View style={{ marginLeft: -hp(1.7) }}>
+                        {/* <View style={{ marginLeft: -hp(1.7) }}>
                             {
                                 item && !!item?.timeRemaining &&
                                 <CountDown
@@ -158,7 +158,7 @@ export default function DailyMission(props) {
                                     showSeparator={true}
                                 />
                             }
-                        </View>
+                        </View> */}
                     </View>
                     <View style={[{ marginTop: Spacing.PADDING_7, justifyContent: 'space-between' }]}>
                         {item?.attributeArr.map((el) => {

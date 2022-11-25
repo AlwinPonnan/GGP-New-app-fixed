@@ -124,12 +124,12 @@ export default function SuggestedVideo(props) {
     const handleVideoMixAddToUserFromAdminVideoMix = async () => {
         let decoded = await getDecodedToken()
         let rewardCount = () => {
-            if(rewardcount == ''){
+            if (rewardcount == '') {
                 return 1;
-            }else{
+            } else {
                 return Number(rewardcount)
             }
-    } 
+        }
         let obj = {
             kidId: currentKid._id,
             userId: decoded.userId,
@@ -502,6 +502,7 @@ export default function SuggestedVideo(props) {
                                                 <DatePicker
                                                     mode="date"
                                                     open={true}
+                                                    textColor={'#000'}
                                                     minimumDate={new Date()}
                                                     style={{ flex: 1, fontSize: 15, backgroundColor: "white", borderRadius: 10, marginLeft: 15, }}
                                                     date={stopOn}
