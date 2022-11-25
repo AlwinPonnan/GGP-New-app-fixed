@@ -1,15 +1,14 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Image } from 'react-native';
+import { ActivityIndicator, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { LoaderContext, toggleModalContext } from '../../App';
 import { getPhoneNumber, getUserDataFromBackend, removePhoneNumber, setPhoneNumber } from '../api/user';
 import Header from '../Component/CommonHeader';
 import commonStyle from '../Styles/commonStyle';
 import { Colors, Spacing, Typography } from '../Styles/theme';
-import EncryptedStorage from 'react-native-encrypted-storage';
-import { LoaderContext, toggleModalContext } from '../../App';
 
 export default function Login(props) {
     const focused = useIsFocused()
@@ -22,7 +21,7 @@ export default function Login(props) {
         setLoading(true)
         try {
             await removePhoneNumber();
-                   let obj = {
+            let obj = {
                 phone: phone
             }
             await setPhoneNumber(phone);
@@ -39,14 +38,14 @@ export default function Login(props) {
             }
         }
         catch (error) {
-              if (error?.response?.data?.message) {
-              setToggleModal(true)
-              setMessage(error.response.data.message)
+            if (error?.response?.data?.message) {
+                setToggleModal(true)
+                setMessage(error.response.data.message)
             } else {
-              setToggleModal(true)
-              setMessage(error?.message)
+                setToggleModal(true)
+                setMessage(error?.message)
             }
-          }
+        }
         setLoading(false)
     }
 

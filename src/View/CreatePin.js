@@ -1,14 +1,13 @@
 import { useIsFocused } from '@react-navigation/native';
-import React, { useState,useContext } from 'react';
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, TextInput, ActivityIndicator,Image } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { ActivityIndicator, Image, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { LoaderContext, toggleModalContext } from '../../App';
+import { createPin, getPhoneNumber } from '../api/user';
 import LoginHeader from '../Component/LoginHeader';
 import commonStyle from '../Styles/commonStyle';
 import { Colors, Spacing, Typography } from '../Styles/theme';
-import EncryptedStorage from 'react-native-encrypted-storage';
-import { createPin, getPhoneNumber } from '../api/user';
-import { LoaderContext, toggleModalContext } from '../../App';
 
 export default function CreatePin(props) {
     const focused = useIsFocused()
@@ -32,7 +31,7 @@ export default function CreatePin(props) {
                     let { data: res } = await createPin(obj)
                     console.log(JSON.stringify(res, null, 2), "asasdasd")
                     if (res.message) {
-                                             //  alert("Pin created")
+                        //  alert("Pin created")
                         setToggleModal(true)
                         setMessage("Pin created")
                         props.navigation.navigate("LoginOption")
@@ -45,20 +44,20 @@ export default function CreatePin(props) {
                 }
             }
             else {
-                              setToggleModal(true)
+                setToggleModal(true)
                 setMessage("Pin does not match with confirm pin")
-              //  alert("Pin does not match with confirm pin")
+                //  alert("Pin does not match with confirm pin")
             }
         }
         catch (error) {
-                       if (error?.response?.data?.message) {
-              setToggleModal(true)
-              setMessage(error.response.data.message)
+            if (error?.response?.data?.message) {
+                setToggleModal(true)
+                setMessage(error.response.data.message)
             } else {
-              setToggleModal(true)
-              setMessage(error?.message)
+                setToggleModal(true)
+                setMessage(error?.message)
             }
-          }
+        }
         setLoading(false)
     }
 
@@ -77,17 +76,17 @@ export default function CreatePin(props) {
                         <>
                             <LoginHeader />
 
-                            <View style={{ paddingHorizontal: Spacing.MARGIN_20,marginTop:Spacing.MARGIN_70 }}>
+                            <View style={{ paddingHorizontal: Spacing.MARGIN_20, marginTop: Spacing.MARGIN_70 }}>
                                 <Text style={[styles.title]}>Create PIN</Text>
                                 <Text style={[styles.label]}>PIN</Text>
                                 <LinearGradient start={{ x: 1, y: 0 }} end={{ x: 0, y: 2 }} colors={[Colors.GRADIENT1, Colors.GRADIENT2, Colors.GRADIENT1]} style={[styles.linearBtn, { height: hp(6.5), }]} >
-                                    <View style={[styles.btnView, {borderRadius:30, backgroundColor: Colors.WHITE, }]}>
+                                    <View style={[styles.btnView, { borderRadius: 30, backgroundColor: Colors.WHITE, }]}>
                                         <TextInput placeholder='Enter PIN' maxLength={4} onChangeText={(val) => setPin(val)} value={pin} keyboardType='numeric' style={{ paddingHorizontal: Spacing.MARGIN_15 }} />
                                     </View>
                                 </LinearGradient>
                                 <Text style={[styles.label]}>Confirm PIN</Text>
                                 <LinearGradient start={{ x: 1, y: 0 }} end={{ x: 0, y: 2 }} colors={[Colors.GRADIENT1, Colors.GRADIENT2, Colors.GRADIENT1]} style={[styles.linearBtn, { height: hp(6.5), }]} >
-                                    <View style={[styles.btnView, {borderRadius:30, backgroundColor: Colors.WHITE, }]}>
+                                    <View style={[styles.btnView, { borderRadius: 30, backgroundColor: Colors.WHITE, }]}>
                                         <TextInput placeholder='Enter 4-digit PIN' maxLength={4} onChangeText={(val) => setConfirmPin(val)} value={confirmPin} keyboardType='numeric' style={{ paddingHorizontal: Spacing.MARGIN_15 }} />
                                     </View>
                                 </LinearGradient>
@@ -107,7 +106,7 @@ export default function CreatePin(props) {
                             </View>
                         </>
                 }
-                <Image source={require('../images/bonusTeady.png')} resizeMode='contain' style={[commonStyle.bottonPg]}/>
+                <Image source={require('../images/bonusTeady.png')} resizeMode='contain' style={[commonStyle.bottonPg]} />
             </ImageBackground>
         </View>
     )

@@ -212,7 +212,7 @@ export default function AddVideo(props) {
                 setLoading(false)
                 return;
             }
-            if (rewardcount <= 0) {
+            if (parseInt(rewardcount) <= 0 || rewardcount == " " || rewardcount == "." || rewardcount == "," || rewardcount == "-") {
                 setToggleModal(true)
                 setMessage("Please add reward")
                 setLoading(false)
@@ -332,7 +332,7 @@ export default function AddVideo(props) {
                         {/* <Text style={{ fontSize: Typography.FONT_SIZE_17, fontFamily: 'Montserrat-SemiBold', color: '#747474' }}>{rewardcount}</Text> */}
                         <TextInput
                             value={`${rewardcount}`}
-                            onChangeText={e => setRewardCount(e ? e == `0` ? `1` : e : "1")}
+                            onChangeText={e => setRewardCount(e)}
                             maxLength={4}
                             keyboardType="number-pad"
                             style={{

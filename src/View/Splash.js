@@ -1,7 +1,7 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
 import { Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import EncryptedStorage from 'react-native-encrypted-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { LoaderContext, refContext, toggleModalContext } from '../../App';
@@ -93,7 +93,7 @@ export default function Splash(props) {
     const focused = useIsFocused()
 
     const getIsFirstTimeUser = async () => {
-        let isFirstTimeUser = await EncryptedStorage.getItem("isFirstTimeUser");
+        let isFirstTimeUser = await AsyncStorage.getItem("isFirstTimeUser");
         if (isFirstTimeUser) {
             setIsFirstTimeUserValue(isFirstTimeUser)
             props.navigation.navigate("Login")
@@ -109,7 +109,7 @@ export default function Splash(props) {
             previousValue = !previousValue
             return previousValue
         })
-        let isFirstTimeUser = await EncryptedStorage.setItem("isFirstTimeUser", `${isFirstTimeUserValue}`);
+        let isFirstTimeUser = await AsyncStorage.setItem("isFirstTimeUser", `${isFirstTimeUserValue}`);
     }
 
 

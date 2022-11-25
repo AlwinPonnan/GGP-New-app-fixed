@@ -210,7 +210,6 @@ export default function Otp(props) {
                   style={{ width: '80%', zIndex: 150 }}
                   pinCount={6}
                   autoFocusOnLoad
-                  code={otp}
                   codeInputFieldStyle={styles.underlineStyleBase}
                   codeInputHighlightStyle={styles.underlineStyleHighLighted}
                   onCodeChanged={code => {

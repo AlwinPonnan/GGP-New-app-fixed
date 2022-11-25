@@ -15,7 +15,7 @@ export const addAddress = async (obj) => {
 };
 
 
-export const getaddress = async () => {
+export const getaddressFromFavcy = async () => {
     let token = await getAuthToken()
     console.log(token)
     let config = {

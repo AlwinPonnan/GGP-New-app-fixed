@@ -1,8 +1,7 @@
 
 import axios from 'axios';
 import { url } from './url';
-import EncryptedStorage from 'react-native-encrypted-storage';
-import { getAuthToken, getDecodedToken } from './user';
+import { getAuthToken } from './user';
 let serverUrl = `${url}/KidGoals`;
 
 export const createKidGoal = async (obj) => {

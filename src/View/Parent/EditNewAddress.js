@@ -138,15 +138,23 @@ export default function EditNewAddress(props) {
         }
         setLoading(false)
     }
+
+
+    const handlePinCodeAdd = (e) => {
+        const re = /^[0-9\b]+$/;
+        if (e === '' || re.test(e)) {
+            setPincode(e)
+        }
+    }
     return (
         <ScrollView style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
 
             <Header logo={true} />
             <View style={{ padding: Spacing.PADDING_20 }}>
                 <Text style={[styles.heading]}>Edit Address</Text>
-                <Text style={[styles.label]}>Full Name:</Text>
+                <Text style={[styles.label]}>Full Name *:</Text>
                 <TextInput placeholder='enter name' value={address_name} onChangeText={(val) => setAddress_name(val)} style={[styles.input]} />
-                <Text style={[styles.label]}>Phone:</Text>
+                <Text style={[styles.label]}>Phone *:</Text>
                 <View style={[styles.input, styles.inputBorder, { paddingHorizontal: 0 }]}>
                     <View style={[commonStyle.flexRow]}>
 
@@ -171,8 +179,6 @@ export default function EditNewAddress(props) {
                     </View>
                 </View>
                 {/* <View style={[commonStyle.flexRow, styles.input]}> */}
-
-
                 {/* {code == '' && (
                         <Flag height={hp(3)} width={wp(5)} />
                     )}
@@ -193,17 +199,17 @@ export default function EditNewAddress(props) {
                 <TextInput placeholder='' value={address_line_2} onChangeText={(val) => { val.length < 100 && setAddress_line_2(val) }} style={[styles.input]} />
 
                 <Text style={[styles.label]}>State *:</Text>
-                <TextInput placeholder='' value={state} onChangeText={(val) => setState(val)} style={[styles.input]} />
+                <TextInput placeholder='' value={state} editable={false} onChangeText={(val) => setState(val)} style={[styles.input]} />
 
 
                 <Text style={[styles.label]}>City *:</Text>
                 <TextInput placeholder='' value={city} onChangeText={(val) => { val.length < 50 && setCity(val) }} style={[styles.input]} />
 
                 <Text style={[styles.label]}>Landmark *:</Text>
-                <TextInput placeholder='Eg. Behind Regal Cinema' value={landmark} onChangeText={(val) => { /[^0-9a-zA-Z]/.test(val) == false && setLandmark(val) }} style={[styles.input]} />
+                <TextInput placeholder='Eg. Behind Regal Cinema' value={landmark} onChangeText={(val) => { /[^0-9a-zA-Z ]/.test(val) == false && setLandmark(val) }} style={[styles.input]} />
 
                 <Text style={[styles.label]}>Postal Code *:</Text>
-                <TextInput placeholder='Eg. 110044' value={pincode} maxLength={6} keyboardType="number-pad" onChangeText={(val) => { handlePinCodeAdd(val) }} style={[styles.input]} />
+                <TextInput placeholder='Eg. 110044' editable={false} value={pincode} maxLength={6} keyboardType="number-pad" onChangeText={(val) => { handlePinCodeAdd(val) }} style={[styles.input]} />
                 <TouchableOpacity style={{ marginTop: Spacing.MARGIN_30, paddingBottom: Spacing.MARGIN_50 }} onPress={() => handleSubmit()}>
                     <LinearGradient start={{ x: 1, y: 0 }} end={{ x: 0, y: 2 }} colors={[Colors.GRADIENT1, Colors.GRADIENT2, Colors.GRADIENT1]} style={[commonStyle.linearBtn]} >
                         <Text style={[commonStyle.btnText]}>Update</Text>

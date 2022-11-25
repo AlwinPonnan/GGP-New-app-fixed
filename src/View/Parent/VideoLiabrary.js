@@ -17,7 +17,7 @@ import { ANTDESIGN } from '../../Styles/theme/Icons';
 import { LoaderContext, toggleModalContext } from '../../../App';
 import WebView from 'react-native-webview';
 import CheckBox from 'react-native-check-box';
-import EncryptedStorage from 'react-native-encrypted-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function VideoLiabrary(props) {
     const navigation = useNavigation();
@@ -82,7 +82,7 @@ export default function VideoLiabrary(props) {
 
 
     const getIsFirstTimeUser = async () => {
-        let isFirstTimeUserVideo = await EncryptedStorage.getItem("isFirstTimeUserVideo");
+        let isFirstTimeUserVideo = await AsyncStorage.getItem("isFirstTimeUserVideo");
         if (isFirstTimeUserVideo) {
             setIsFirstTimeUserVideo(isFirstTimeUserVideo)
         }
@@ -98,7 +98,7 @@ export default function VideoLiabrary(props) {
             previousValue = !previousValue
             return previousValue
         })
-        let isFirstTimeUser = await EncryptedStorage.setItem("isFirstTimeUserVideo", `${isFirstTimeUserVideo}`);
+        let isFirstTimeUser = await AsyncStorage.setItem("isFirstTimeUserVideo", `${isFirstTimeUserVideo}`);
     }
 
 

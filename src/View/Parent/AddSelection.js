@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome"
 import AntDesign from "react-native-vector-icons/AntDesign"
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import parentStyle from '../../Styles/parentStyle';
-import { deleteaddress, getaddress } from '../../api/Address';
+import { deleteaddress, getaddress, getaddressFromFavcy } from '../../api/Address';
 import { getAddress, removeAddress, setAddress } from '../../api/user';
 import Trash from '../../images/svg/parentsvg/trash';
 import { PRIMARY } from '../../Styles/theme/Colors';
@@ -38,9 +38,9 @@ export default function AddSelection(props) {
         setLoading(true)
         try {
             console.log("called")
-            let res = await getaddress();
+            let res = await getaddressFromFavcy();
             setLoading(false)
-            console.log(JSON.stringify(res, null, 2), "Data");
+            // console.log(JSON.stringify(res, null, 2), "Data");
             if (res && res.data.data) {
                 setAddressArr([...res.data.data])
                 let tempSelectedAddress = await getAddress()
@@ -75,9 +75,14 @@ export default function AddSelection(props) {
         try {
             let { data: res } = await deleteaddress(id);
             if (res.message) {
+
                 setApproveModal(false)
                 console.log(res.message, 'response')
                 handleGetAllAddresses()
+                console.log(checkIsSelected(id), "checkIsSelected(id)")
+                if (checkIsSelected(id)) {
+                    removeAddress()
+                }
             }
         }
         catch (error) {
@@ -101,7 +106,7 @@ export default function AddSelection(props) {
 
     const handleGoBackToKidCart = async (obj) => {
         let temp = JSON.stringify(obj)
-        console.log(temp)
+        console.log(temp, "temp")
         await setAddress(temp)
         props.navigation.navigate("KidCard", { data: props?.route?.params?.data })
     }
@@ -122,6 +127,7 @@ export default function AddSelection(props) {
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: hp(1) }}>
                     <TouchableOpacity onPress={() => { navigation.navigate('EditNewAddress', { data: item }); }} style={{ position: 'absolute', right: hp(3.5), zIndex: 150 }}><Icon name='pencil' size={25} color={'black'} style={{ marginRight: hp(1) }} /></TouchableOpacity>
                     <TouchableOpacity onPress={() => { setApproveModal(true); setCurrentSelectedAddress(item.id) }} style={{ position: 'absolute', right: hp(1), zIndex: 150 }}><Trash height={hp(3)} width={wp(5)} style={{ alignSelf: 'flex-end' }} /></TouchableOpacity>
+                    {/* <TouchableOpacity onPress={async () => { await removeAddress() }} style={{ position: 'absolute', right: hp(1), zIndex: 150 }}><Trash height={hp(3)} width={wp(5)} style={{ alignSelf: 'flex-end' }} /></TouchableOpacity> */}
                 </View>
                 {/* <Pressable style={{ zIndex: 0 }} onPress={() => { handleGoBackToKidCart(item) }}> */}
                 <Pressable onPress={() => handleGoBackToKidCart(item)} style={{ zIndex: 0 }} >

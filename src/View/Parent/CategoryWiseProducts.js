@@ -58,15 +58,22 @@ export default function CategoryWiseProducts(props) {
         try {
             let { data: res } = await getShopProductsbyCategory(categoryId)
             let filteredArr = [];
+            console.log(JSON.stringify(res.data, null, 2), "res.data")
             console.log(res.data.length, "res.data.length")
             for (const el of res?.data) {
-                if (filteredArr.some(ele => !(ele.inventory.item_id == el.inventory.item_id))) {
+                console.log(filteredArr.some(ele => (ele?.inventory?.item_id != el?.inventory?.item_id)), "asd")
+                if (filteredArr.length > 0) {
+                    if (filteredArr.some(ele => !(ele?.inventory?.item_id == el?.inventory?.item_id) || !ele?.inventory?.item_id)) {
+                        filteredArr.push(el);
+                    }
+                }
+                else if (el?.inventory?.item_id) {
                     filteredArr.push(el);
                 }
             };
             console.log(JSON.stringify(filteredArr, null, 2), "filtered Arr");
-            setProductsArr(filteredArr);
-            console.log(JSON.stringify(res.data, null, 2), "Ress")
+            setProductsArr([...filteredArr]);
+            // console.log(JSON.stringify(res.data, null, 2), "Ress")
         }
         catch (error) {
             if (error?.response?.data?.message) {

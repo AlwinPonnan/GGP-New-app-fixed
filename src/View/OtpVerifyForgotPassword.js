@@ -14,6 +14,7 @@ import {
     sendOtp,
     setFavcyAuthToken, verifyOtp
 } from '../api/user';
+import OTPInput from "react-native-otp"
 import CommonHeader from '../Component/CommonHeader';
 import commonStyle from '../Styles/commonStyle';
 import { Colors, Spacing, Typography } from '../Styles/theme';
@@ -198,12 +199,12 @@ export default function OtpVerifyForgotPassword(props) {
                                     height: 100,
                                     width: wp(80)
                                 }}>
+
                                 <OTPInputView
                                     containerStyle={{ width: '80%', height: 10 }}
                                     textInputStyle={{ height: 100 }}
                                     pinCount={6}
                                     autoFocusOnLoad
-                                    code={otp}
                                     codeInputFieldStyle={styles.underlineStyleBase}
                                     codeInputHighlightStyle={styles.underlineStyleHighLighted}
                                     onCodeFilled={code => {

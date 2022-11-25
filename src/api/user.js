@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { url } from './url';
-import EncryptedStorage from 'react-native-encrypted-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 let serverUrl = `${url}/users`;
 let favcyUrl = "https://www.favcy.com"    ////////////production
 // let favcyUrl = "https://staging.favcy.com"    ////////////staging
@@ -129,131 +129,130 @@ export const getUserDataFromBackend = async obj => {
 
 ////////Phone Number
 export const setPhoneNumber = async phone => {
-  return await EncryptedStorage.setItem('PHONE', phone);
+  return await AsyncStorage.setItem('PHONE', phone);
 };
 
 export const removePhoneNumber = async () => {
-  let token = await EncryptedStorage.getItem('PHONE')
+  let token = await AsyncStorage.getItem('PHONE')
   if (token)
-    return await EncryptedStorage.removeItem('PHONE');
+    return await AsyncStorage.removeItem('PHONE');
 
   else return false
 };
 
 export const getPhoneNumber = async () => {
-  return await EncryptedStorage.getItem('PHONE');
+  return await AsyncStorage.getItem('PHONE');
 };
 
 
 ////////Role
 export const setRoleString = async role => {
-  return await EncryptedStorage.setItem('ROLE', role);
+  return await AsyncStorage.setItem('ROLE', role);
 };
 
 export const removeRoleString = async () => {
-  return await EncryptedStorage.removeItem('ROLE');
+  return await AsyncStorage.removeItem('ROLE');
 };
 
 export const getRoleString = async () => {
-  return await EncryptedStorage.getItem('ROLE');
+  return await AsyncStorage.getItem('ROLE');
 };
 
 
 
 ////////Address
 export const setAddress = async address => {
-  return await EncryptedStorage.setItem('ADDRESS', address);
+  return await AsyncStorage.setItem('ADDRESS', address);
 };
 
 export const removeAddress = async () => {
-  return await EncryptedStorage.removeItem('ADDRESS');
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!caalled!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  return await AsyncStorage.removeItem('ADDRESS');
 };
 
 export const getAddress = async () => {
-  return await EncryptedStorage.getItem('ADDRESS');
+  return await AsyncStorage.getItem('ADDRESS');
 };
 
-// /////////// Background
 
+
+
+///////////// Background
 export const setKidDashboardBackgroundImg = async background => {
-  return await EncryptedStorage.setItem('KIDDASHBOARDBACKGROUND', background);
+  return await AsyncStorage.setItem('KIDDASHBOARDBACKGROUND', background);
+};
+export const getKidDashboardBackgroundImg = async () => {
+  return await AsyncStorage.getItem('KIDDASHBOARDBACKGROUND');
 };
 
-export const getKidDashboardBackgroundImg = async () => {
-  return await EncryptedStorage.getItem('KIDDASHBOARDBACKGROUND');
-};
+
+
 
 ////////favcy Payment token
 export const setFavcyAuthToken = async token => {
-  return await EncryptedStorage.setItem('FAVCY_AUTH_TOKEN', token);
+  return await AsyncStorage.setItem('FAVCY_AUTH_TOKEN', token);
 };
-
 export const getDecodedFavcyToken = async () => {
-  let token = await EncryptedStorage.getItem('FAVCY_AUTH_TOKEN');
+  let token = await AsyncStorage.getItem('FAVCY_AUTH_TOKEN');
   let decoded = await jwt_decode(token);
 
   return decoded;
 };
-
 export const getFavcyAuthToken = async () => {
-  return await EncryptedStorage.getItem('FAVCY_AUTH_TOKEN');
+  return await AsyncStorage.getItem('FAVCY_AUTH_TOKEN');
 };
-
 export const removeFavcyAuthToken = async () => {
-  return await EncryptedStorage.removeItem('FAVCY_AUTH_TOKEN');
+  return await AsyncStorage.removeItem('FAVCY_AUTH_TOKEN');
 };
 
 
 ////////favcy Session token
 export const setFavcyMainAuthToken = async token => {
-  return await EncryptedStorage.setItem('FAVCY_AUTH_TOKEN', token);
+  return await AsyncStorage.setItem('FAVCY_AUTH_TOKEN', token);
 };
-
 export const getDecodedFavcyMainToken = async () => {
-  let token = await EncryptedStorage.getItem('FAVCY_AUTH_TOKEN');
+  let token = await AsyncStorage.getItem('FAVCY_AUTH_TOKEN');
   let decoded = await jwt_decode(token);
-
   return decoded;
 };
-
 export const getFavcyAuthMainToken = async () => {
-  return await EncryptedStorage.getItem('FAVCY_AUTH_TOKEN');
+  return await AsyncStorage.getItem('FAVCY_AUTH_TOKEN');
+};
+export const removeFavcyAuthMainToken = async () => {
+  return await AsyncStorage.removeItem('FAVCY_AUTH_TOKEN');
 };
 
-export const removeFavcyAuthMainToken = async () => {
-  return await EncryptedStorage.removeItem('FAVCY_AUTH_TOKEN');
-};
 
 ///// our token
 export const setAuthToken = async token => {
-  return await EncryptedStorage.setItem('AUTH_TOKEN', token);
+  return await AsyncStorage.setItem('AUTH_TOKEN', token);
 };
 
 export const getDecodedToken = async () => {
-  let token = await EncryptedStorage.getItem('AUTH_TOKEN');
+  let token = await AsyncStorage.getItem('AUTH_TOKEN');
   let decoded = await jwt_decode(token);
 
   return decoded;
 };
 
 export const getAuthToken = async () => {
-  return await EncryptedStorage.getItem('AUTH_TOKEN');
+  return await AsyncStorage.getItem('AUTH_TOKEN');
 };
 
 export const removeAuthToken = async () => {
-  return await EncryptedStorage.removeItem('AUTH_TOKEN');
+  return await AsyncStorage.removeItem('AUTH_TOKEN');
 };
 
 
 export const setUserObjForRegister = async (obj) => {
-  return await EncryptedStorage.setItem('USER_OBJ_FOR_REGISTER', obj);
+  return await AsyncStorage.setItem('USER_OBJ_FOR_REGISTER', obj);
 };
 export const getUserObjForRegister = async () => {
-  return await EncryptedStorage.getItem('USER_OBJ_FOR_REGISTER');
+  return await AsyncStorage.getItem('USER_OBJ_FOR_REGISTER');
 };
 
 export const removeUserObjForRegister = async () => {
-  return await EncryptedStorage.removeItem('USER_OBJ_FOR_REGISTER');
+  return await AsyncStorage.removeItem('USER_OBJ_FOR_REGISTER');
 };
 
 
@@ -263,24 +262,24 @@ export const removeUserObjForRegister = async () => {
 
 
 export const setCurrentTabForMissions = async (VAL) => {
-  return await EncryptedStorage.setItem('CURRENTTABFORMISSION', VAL);
+  return await AsyncStorage.setItem('CURRENTTABFORMISSION', VAL);
 };
 export const getCurrentTabForMissions = async () => {
-  return await EncryptedStorage.getItem('CURRENTTABFORMISSION');
+  return await AsyncStorage.getItem('CURRENTTABFORMISSION');
 };
 
 export const removeCurrentTabForMissions = async () => {
-  return await EncryptedStorage.removeItem('CURRENTTABFORMISSION');
+  return await AsyncStorage.removeItem('CURRENTTABFORMISSION');
 };
 
 
 export const setCurrentTabForVideo = async (VAL) => {
-  return await EncryptedStorage.setItem('CURRENTTABFORVIDEO', VAL);
+  return await AsyncStorage.setItem('CURRENTTABFORVIDEO', VAL);
 };
 export const getCurrentTabForVideo = async () => {
-  return await EncryptedStorage.getItem('CURRENTTABFORVIDEO');
+  return await AsyncStorage.getItem('CURRENTTABFORVIDEO');
 };
 
 export const removeCurrentTabForVideo = async () => {
-  return await EncryptedStorage.removeItem('CURRENTTABFORVIDEO');
+  return await AsyncStorage.removeItem('CURRENTTABFORVIDEO');
 };

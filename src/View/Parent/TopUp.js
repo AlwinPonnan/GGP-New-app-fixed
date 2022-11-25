@@ -172,7 +172,6 @@ export default function TopUp(props) {
       console.log(JSON.stringify(res, null, 2), "response")
       if (res) {
 
-
         Clipboard.setString(`${webUrl}topup_payment?amount=${count}&amount_in_100=${count * 100}&favcy_token=${res.data}&user_id=${userDataObj._id}`);
 
         const result = await Share.share({

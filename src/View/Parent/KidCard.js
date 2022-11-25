@@ -57,10 +57,14 @@ export default function KidCard(props) {
 
     const getSelectedAddress = async () => {
         let SeletectedAddress = await getAddress()
-        if (SeletectedAddress) {
+        console.log(SeletectedAddress, "SeletectedAddress,SeletectedAddress")
+        if (SeletectedAddress && SeletectedAddress != null) {
             SeletectedAddress = JSON.parse(SeletectedAddress)
             console.log(SeletectedAddress, "SeletectedAddress")
             setSelectedAddress(SeletectedAddress)
+        }
+        else {
+            setSelectedAddress({})
         }
     }
 
@@ -128,8 +132,8 @@ export default function KidCard(props) {
     const calculateProductValue = () => {
         if (goalsObj.productObj) {
 
-            let couponValue = 75
-            // let couponValue = selectedCoupon_code.voucher_value_in_100 / 100
+            // let couponValue = 75
+            let couponValue = selectedCoupon_code.voucher_value_in_100 / 100
             let value = 0
             if (selectedCoupon_code.type == "flat_amount") {
                 value = (goalsObj?.productObj?.favcy_inventory_item?.amount - couponValue)

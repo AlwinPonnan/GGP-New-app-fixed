@@ -1,8 +1,6 @@
-import axios from 'axios';
-import { url } from './url';
-import EncryptedStorage from 'react-native-encrypted-storage';
-import { getDecodedToken } from './user';
 import { axiosApiInstance } from '../../App';
+import { url } from './url';
+import { getDecodedToken } from './user';
 let serverUrl = `${url}/KidVideoCompletion`;
 
 export const kidVideoCreate = async (obj) => {

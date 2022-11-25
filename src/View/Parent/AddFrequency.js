@@ -377,7 +377,9 @@ export default function AddFrequency(props) {
         if (previousState[index].attributesArr[indexX].frequencyAmount == 0) {
           previousState[index].disabled = false
         }
+        // else {
         // previousState[index].attributesArr[indexX].coinsAmount = 1
+        // }
       }
       return [...previousState]
     })

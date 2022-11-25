@@ -15,6 +15,7 @@ import {
   widthPercentageToDP as wp
 } from 'react-native-responsive-screen';
 import WebView from 'react-native-webview';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -30,7 +31,6 @@ import { Colors, Spacing, Typography } from '../../Styles/theme';
 import { ANTDESIGN } from '../../Styles/theme/Icons';
 import { LoaderContext, toggleModalContext } from '../../../App';
 import CheckBox from 'react-native-check-box';
-import EncryptedStorage from 'react-native-encrypted-storage';
 
 export default function Mission(props) {
   const navigation = useNavigation();
@@ -70,7 +70,7 @@ export default function Mission(props) {
 
 
   const getIsFirstTimeUser = async () => {
-    let isFirstTimeUserMission = await EncryptedStorage.getItem("isFirstTimeUserMission");
+    let isFirstTimeUserMission = await AsyncStorage.getItem("isFirstTimeUserMission");
     if (isFirstTimeUserMission) {
       setIsFirstTimeUserMission(isFirstTimeUserMission)
     }
@@ -86,7 +86,7 @@ export default function Mission(props) {
       previousValue = !previousValue
       return previousValue
     })
-    let isFirstTimeUser = await EncryptedStorage.setItem("isFirstTimeUserMission", `${isFirstTimeUserMission}`);
+    let isFirstTimeUser = await AsyncStorage.setItem("isFirstTimeUserMission", `${isFirstTimeUserMission}`);
   }
 
 
