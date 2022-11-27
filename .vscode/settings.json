@@ -1,0 +1,6 @@
+{
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+    }
+}

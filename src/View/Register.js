@@ -1,42 +1,52 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useEffect, useState } from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useContext, useEffect, useState} from 'react';
 import {
-  ActivityIndicator, FlatList, ImageBackground, Modal, ScrollView,
+  ActivityIndicator,
+  FlatList,
+  ImageBackground,
+  Modal,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import {
   heightPercentageToDP as hp,
-  widthPercentageToDP as wp
+  widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
-  CheckValidReferral, generateGuestToken, sendOtp, setPhoneNumber, setUserObjForRegister
+  CheckValidReferral,
+  generateGuestToken,
+  sendOtp,
+  setPhoneNumber,
+  setUserObjForRegister,
 } from '../api/user';
 import CommonHeader from '../Component/CommonHeader';
 import MasterData from '../MasterData';
 import commonStyle from '../Styles/commonStyle';
 import CSS from '../Styles/parentStyle';
-import { Colors, Spacing, Typography } from '../Styles/theme';
-import { ANTDESIGN } from '../Styles/theme/Icons';
+import {Colors, Spacing, Typography} from '../Styles/theme';
+import {ANTDESIGN} from '../Styles/theme/Icons';
 // import PhoneInput from 'react-native-phone-input'
-import PhoneInput from "react-native-phone-number-input";
-import { LoaderContext, refContext, toggleModalContext } from '../../App';
+import PhoneInput from 'react-native-phone-number-input';
+import {LoaderContext, refContext, toggleModalContext} from '../../App';
+import {useAnalytics} from '@segment/analytics-react-native';
 
 export default function Signup(props) {
   const [codeModal, setCodeModal] = useState(false);
   const [code, setCode] = useState('');
   const [flag, setFlag] = useState('');
-  const { toggleObj, messageObj } = useContext(toggleModalContext)
+  const {toggleObj, messageObj} = useContext(toggleModalContext);
   const [toggleModal, setToggleModal] = toggleObj;
   const [message, setMessage] = messageObj;
   const codeData = MasterData.phone;
   const [loading, setLoading] = useContext(LoaderContext);
+  const {track} = useAnalytics();
 
-  const codeRenderItem = ({ item }) => {
+  const codeRenderItem = ({item}) => {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -52,12 +62,11 @@ export default function Signup(props) {
             backgroundColor: Colors.WHITE,
           },
         ]}>
-        <Text style={[CSS.listdownTxt, { width: '25%' }]}>{item.code}</Text>
+        <Text style={[CSS.listdownTxt, {width: '25%'}]}>{item.code}</Text>
         <Text style={[CSS.listdownTxt]}>{item.country}</Text>
       </TouchableOpacity>
     );
   };
-
 
   const [firstName, setFirstname] = useState('');
   const [lastName, setLastname] = useState('');
@@ -66,7 +75,7 @@ export default function Signup(props) {
   const [email, setEmail] = useState('');
   const [pin, setPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
-  const [referalCode, setReferalCode] = useState("");
+  const [referalCode, setReferalCode] = useState('');
   const [token, setToken] = useState('');
   const [ref, setRef] = useContext(refContext);
 
@@ -81,15 +90,16 @@ export default function Signup(props) {
   };
 
   useEffect(() => {
-    setReferalCode(ref)
-  }, [])
+    setReferalCode(ref);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       var validRegex =
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-      // firstName != '' && firstName != ' ' && lastName != '' && lastName != ' ' && 
+      // firstName != '' && firstName != ' ' && lastName != '' && lastName != ' ' &&
       // if (phone != '' && email != '') {
       // } else if (phone == '') {
       //   // alert('Please Fill all the fields');
@@ -97,16 +107,16 @@ export default function Signup(props) {
       //   setMessage('Please Fill all the fields correctly empty spaces not allowed')
 
       // }
-      if (email == "" || !email.match(validRegex)) {
+      if (email == '' || !email.match(validRegex)) {
         // alert('Please Enter a valid email address');
-        setToggleModal(true)
-        setMessage('Please Enter a valid email address')
-        setLoading(false)
+        setToggleModal(true);
+        setMessage('Please Enter a valid email address');
+        setLoading(false);
         return;
-      } else if (phone == "" || phone.length < 10) {
-        setToggleModal(true)
-        setMessage('Please enter a Valid phone Number')
-        setLoading(false)
+      } else if (phone == '' || phone.length < 10) {
+        setToggleModal(true);
+        setMessage('Please enter a Valid phone Number');
+        setLoading(false);
         return;
       }
       // else if (countryCode !== 91) {
@@ -115,42 +125,39 @@ export default function Signup(props) {
       //   setLoading(false)
       //   return;
       // }
-      else if (firstName == "" || firstName.trim().length == 0) {
-        setToggleModal(true)
-        setMessage('First name cannot contain only spaces or be empty')
-        setLoading(false)
+      else if (firstName == '' || firstName.trim().length == 0) {
+        setToggleModal(true);
+        setMessage('First name cannot contain only spaces or be empty');
+        setLoading(false);
         return;
-      }
-      else if (lastName == "" || lastName.trim().length == 0) {
-        setToggleModal(true)
-        setMessage('Last name cannot contain only spaces or be empty')
-        setLoading(false)
+      } else if (lastName == '' || lastName.trim().length == 0) {
+        setToggleModal(true);
+        setMessage('Last name cannot contain only spaces or be empty');
+        setLoading(false);
         return;
-      }
-      else if (pin == "" || pin.length < 4) {
-        setToggleModal(true)
-        setMessage('Please enter a four digit pin')
-        setLoading(false)
+      } else if (pin == '' || pin.length < 4) {
+        setToggleModal(true);
+        setMessage('Please enter a four digit pin');
+        setLoading(false);
         return;
         // alert('Please enter a four digit pin');
-      }
-      else if (confirmPin == "" || confirmPin.length < 4) {
-        setToggleModal(true)
-        setMessage('Please enter a four digit in confirmPin text input')
-        setLoading(false)
+      } else if (confirmPin == '' || confirmPin.length < 4) {
+        setToggleModal(true);
+        setMessage('Please enter a four digit in confirmPin text input');
+        setLoading(false);
         return;
         // alert('Please enter a four digit pin');
-      }
-      else if (pin != confirmPin) {
+      } else if (pin != confirmPin) {
         // alert('Pin and confirm pin does not match');
-        setToggleModal(true)
-        setMessage('Pin and confirm pin does not match')
-        setLoading(false)
+        setToggleModal(true);
+        setMessage('Pin and confirm pin does not match');
+        setLoading(false);
         return;
       } else {
-
         if (referalCode && referalCode.length > 0) {
-          let { data: resReferral } = await CheckValidReferral({ referralCode: referalCode })
+          let {data: resReferral} = await CheckValidReferral({
+            referralCode: referalCode,
+          });
         }
 
         let obj = {
@@ -159,7 +166,7 @@ export default function Signup(props) {
           email,
           phone,
           pin,
-          referedBy: referalCode
+          referedBy: referalCode,
         };
         console.log(obj);
 
@@ -167,13 +174,15 @@ export default function Signup(props) {
         // console.log(response.token, 'response');
         // if (response?.data) {
         await setUserObjForRegister(JSON.stringify(obj));
+        obj.pin = undefined;
+        await track('User Registration', obj);
         // await setAuthToken(response.token);
         // console.log('hdh', response?.data);
         let formData = new FormData();
         //console.log(phone)
         formData.append('otp_mobile_num', phone);
         formData.append('otp_mobile_cc', 91);
-        let { data: res } = await generateGuestToken();
+        let {data: res} = await generateGuestToken();
         console.log(res, 'response from generate guest token');
 
         if (res.data) {
@@ -182,15 +191,12 @@ export default function Signup(props) {
           console.log('form data', formData);
           console.log('inside otp');
 
-          const { data: responseData } = await sendOtp(
-            formData,
-            res.data.token,
-          );
+          const {data: responseData} = await sendOtp(formData, res.data.token);
           console.log(responseData, 'otp Sent');
           if (responseData.status == 200 || responseData.status == 201) {
             // alert(responseData.data.message);
-            setToggleModal(true)
-            setMessage(responseData.data.message)
+            setToggleModal(true);
+            setMessage(responseData.data.message);
             await setPhoneNumber(phone);
             props.navigation.navigate('Otp', {
               data: phone,
@@ -201,32 +207,27 @@ export default function Signup(props) {
         }
         // }
       }
-
-    }
-    catch (error) {
-      console.error(JSON.stringify(error, null, 2))
+    } catch (error) {
+      console.error(JSON.stringify(error, null, 2));
       if (error?.response?.data?.message) {
-        setToggleModal(true)
+        setToggleModal(true);
         if (error.response.data.message) {
-
         } else {
-          setMessage(error.response.data.message)
+          setMessage(error.response.data.message);
         }
       } else {
-        setToggleModal(true)
-        setMessage(error?.message)
+        setToggleModal(true);
+        setMessage(error?.message);
       }
     }
-    setLoading(false)
+    setLoading(false);
   };
 
-  useEffect(() => { });
-
-
+  useEffect(() => {});
 
   const navigation = useNavigation();
   return (
-    <View style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
+    <View style={{backgroundColor: Colors.WHITE, flex: 1}}>
       <CommonHeader hideBackBtn={false} />
       {loading ? (
         <View
@@ -244,7 +245,7 @@ export default function Signup(props) {
             <ImageBackground
               source={require('../images/loginBg.png')}
               resizeMode="stretch"
-              style={[{ flex: 1, minHeight: hp(90), paddingBottom: 20 }]}>
+              style={[{flex: 1, minHeight: hp(90), paddingBottom: 20}]}>
               <View
                 style={{
                   paddingHorizontal: Spacing.MARGIN_15,
@@ -252,7 +253,7 @@ export default function Signup(props) {
                 }}>
                 <Text style={[styles.heading]}>Parent Sign up</Text>
                 <Text style={[styles.label]}>Name *</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <TextInput
                     placeholder="First Name *"
                     value={firstName}
@@ -260,14 +261,14 @@ export default function Signup(props) {
                     style={[
                       styles.input,
                       styles.inputBorder,
-                      { marginRight: Spacing.MARGIN_10, width: '49%' },
+                      {marginRight: Spacing.MARGIN_10, width: '49%'},
                     ]}
                   />
                   <TextInput
                     placeholder="Last Name *"
                     value={lastName}
                     onChangeText={val => setLastname(val)}
-                    style={[styles.input, styles.inputBorder, { width: '49%' }]}
+                    style={[styles.input, styles.inputBorder, {width: '49%'}]}
                   />
                 </View>
                 <Text style={[styles.label]}>Phone *</Text>
@@ -280,7 +281,7 @@ export default function Signup(props) {
                   textProps={{
                     placeholder: 'Enter a phone number...',
                     maxLength: 13,
-                   
+
                   }}
                   style={[styles.input, styles.inputBorder]}
                 /> */}
@@ -297,7 +298,7 @@ export default function Signup(props) {
             containerStyle={{alignItems:'center',justifyContent:'center',borderRadius:30,width:'100%',height:hp(6),width:wp(40)}}
             codeTextStyle={{height:hp(4),}}
             flagButtonStyle={{height:hp(5)}}
-           
+
           /> */}
 
                 {/* <PhoneInput
@@ -312,29 +313,48 @@ export default function Signup(props) {
            textContainerStyle={{borderRadius:30,height:hp(10),backgroundColor:'red'}}
             containerStyle={{alignItems:'center',justifyContent:'center',borderRadius:30,width:'100%',height:hp(6),}}
             codeTextStyle={{height:hp(4),}}
-            flagButtonStyle={{height:hp(6)}} 
+            flagButtonStyle={{height:hp(6)}}
            />*/}
 
-
-                <View style={[styles.input, styles.inputBorder, { paddingHorizontal: 0 }]}>
+                <View
+                  style={[
+                    styles.input,
+                    styles.inputBorder,
+                    {paddingHorizontal: 0},
+                  ]}>
                   <View style={[commonStyle.flexRow]}>
-
                     <PhoneInput
-                      defaultValue='IND'
+                      defaultValue="IND"
                       layout="first"
                       // disabled
                       // disableArrowIcon
-                      onChangeCountry={val => setCountryCode(val.callingCode[0])}
-                      textContainerStyle={{ borderRadius: 30, height: hp(5), width: "100%" }}
-                      containerStyle={{ borderRadius: 30, height: hp(5), width: wp(43) }}
-                      codeTextStyle={{ height: 20, width: "100%", textAlign: "left", margin: 0, padding: 0 }}
+                      onChangeCountry={val =>
+                        setCountryCode(val.callingCode[0])
+                      }
+                      textContainerStyle={{
+                        borderRadius: 30,
+                        height: hp(5),
+                        width: '100%',
+                      }}
+                      containerStyle={{
+                        borderRadius: 30,
+                        height: hp(5),
+                        width: wp(43),
+                      }}
+                      codeTextStyle={{
+                        height: 20,
+                        width: '100%',
+                        textAlign: 'left',
+                        margin: 0,
+                        padding: 0,
+                      }}
                     />
                     <TextInput
                       keyboardType="numeric"
                       onChangeText={val => setPhone(val.replace(/\D/g, ''))}
                       value={phone}
                       maxLength={10}
-                      style={{ flex: 1 }}
+                      style={{flex: 1}}
                       placeholder="Enter Phone *"
                     />
                   </View>
@@ -356,7 +376,7 @@ export default function Signup(props) {
                   style={[styles.input, styles.inputBorder]}
                 />
                 <Text style={[styles.label]}>Set Pin *</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <TextInput
                     placeholder="Pin *"
                     keyboardType="number-pad"
@@ -367,7 +387,7 @@ export default function Signup(props) {
                     style={[
                       styles.input,
                       styles.inputBorder,
-                      { marginRight: Spacing.MARGIN_10, width: '49%' },
+                      {marginRight: Spacing.MARGIN_10, width: '49%'},
                     ]}
                   />
                   <TextInput
@@ -377,7 +397,7 @@ export default function Signup(props) {
                     maxLength={4}
                     secureTextEntry={true}
                     onChangeText={val => setConfirmPin(val.replace(/\D/g, ''))}
-                    style={[styles.input, styles.inputBorder, { width: '49%' }]}
+                    style={[styles.input, styles.inputBorder, {width: '49%'}]}
                   />
                 </View>
                 <View
@@ -385,7 +405,7 @@ export default function Signup(props) {
                     commonStyle.flexRow,
                     {
                       marginTop: Spacing.MARGIN_20,
-                      alignSelf: 'center'
+                      alignSelf: 'center',
                       // marginBottom: Spacing.MARGIN_50,
                     },
                   ]}>
@@ -400,8 +420,11 @@ export default function Signup(props) {
                   </TouchableOpacity> */}
                   <TouchableOpacity
                     onPress={() => handleSubmit()}
-                    style={[styles.bg, { marginLeft: Spacing.MARGIN_10, alignSelf: 'center' }]}>
-                    <Text style={[styles.text, { color: Colors.WHITE }]}>
+                    style={[
+                      styles.bg,
+                      {marginLeft: Spacing.MARGIN_10, alignSelf: 'center'},
+                    ]}>
+                    <Text style={[styles.text, {color: Colors.WHITE}]}>
                       Next
                     </Text>
                   </TouchableOpacity>
@@ -432,7 +455,6 @@ export default function Signup(props) {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   label: {
